@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Logistics & Courier Routing Hub</title>
+    <style>
+        :root {
+            --bg-base: #0f172a;
+            --card-bg: #1e293b;
+            --border-color: #334155;
+            --accent-orange: #f97316;
+            --accent-green: #22c55e;
+            --accent-blue: #3b82f6;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-base);
+            color: var(--text-main);
+            padding: 24px;
+            display: flex;
+            justify-content: center;
+            min-height: 100vh;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        /* Top Navbar */
+        nav {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            padding: 18px 24px;
+            border-radius: 12px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--accent-orange);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .nav-badge {
+            font-size: 0.8rem;
+            color: var(--accent-green);
+            background: rgba(34, 197, 94, 0.15);
+            border: 1px solid rgba(34, 197, 94, 0.3);
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-weight: 600;
+        }
+
+        /* Hero Banner */
+        .hero-banner {
+            background: linear-gradient(135deg, rgba(249, 115, 22, 0.1) 0%, rgba(59, 130, 246, 0.05) 100%), var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 14px;
+            padding: 28px;
+        }
+
+        .hero-banner h1 {
+            font-size: 1.7rem;
+            margin-bottom: 8px;
+            color: var(--accent-orange);
+        }
+
+        .hero-banner p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            line-height: 1.5;
+            max-width: 900px;
+        }
+
+        /* Grid Layout Utama */
+        .grid-layout {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 14px;
+            padding: 22px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .card-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--text-main);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* Form Input Interaktif */
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        label {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        select, input {
+            background: #0f172a;
+            border: 1px solid var(--border-color);
+            color: var(--text-main);
+            padding: 10px 14px;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            outline: none;
+        }
+
+        select:focus, input:focus {
+            border-color: var(--accent-orange);
+        }
+
+        .action-btn {
+            background: var(--accent-orange);
+            color: #fff;
+            border: none;
+            padding: 12px;
+            border-radius: 8px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: opacity 0.2s;
+        }
+
+        .action-btn:hover {
+            opacity: 0.9;
+        }
+
+        /* Output / Hasil Simulasi */
+        .output-box {
+            background: #0f172a;
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            padding: 16px;
+            font-size: 0.9rem;
+            line-height: 1.6;
+            color: var(--text-muted);
+            min-height: 140px;
+        }
+
+        .output-box strong {
+            color: var(--accent-green);
+        }
+
+        /* Daftar Tarif / Estimasi Biaya */
+        .price-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .price-item {
+            background: #0f172a;
+            border: 1px solid var(--border-color);
+            padding: 12px 16px;
+            border-radius: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .price-service {
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .price-cost {
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: var(--accent-green);
+        }
+
+        @media (max-width: 900px) {
+            .grid-layout { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- Top Navbar -->
+        <nav>
+            <div class="logo">
+                <span>🛵</span> Smart Logistics & Courier Hub
+            </div>
+            <div class="nav-badge">
+                ● Live Traffic & Routing Active
+            </div>
+        </nav>
+
+        <!-- Hero Section -->
+        <div class="hero-banner">
+            <h1>Simulasi Penentuan Rute Tercepat & Estimasi Ongkir Kurir</h1>
+            <p>Aplikasi web interaktif untuk menghitung estimasi waktu perjalanan, jarak tempuh, dan biaya pengiriman barang atau makanan secara real-time berdasarkan titik penjemputan dan tujuan di perkotaan.</p>
+        </div>
+
+        <!-- Main Dashboard Grid -->
+        <div class="grid-layout">
+            
+            <!-- Kolom Kiri: Form Input Simulasi Pengiriman -->
+            <div class="card">
+                <div class="card-title">
+                    <span>📍 Atur Titik Pengiriman Pesanan</span>
+                </div>
+
+                <div class="form-group">
+                    <label>Lokasi Penjemputan (Pickup):</label>
+                    <select id="pickupLoc">
+                        <option value="Mall / Pusat Perbelanjaan">Mall / Pusat Perbelanjaan</option>
+                        <option value="Restoran / Cafe Lokal">Restoran / Cafe Lokal</option>
+                        <option value="Gudang Transit Utama">Gudang Transit Utama</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Lokasi Tujuan (Dropoff):</label>
+                    <input type="text" id="dropoffLoc" placeholder="Contoh: Jl. Sudirman No. 45, Perumahan Graha...">
+                </div>
+
+                <div class="form-group">
+                    <label>Jenis Layanan Kurir:</label>
+                    <select id="serviceType">
+                        <option value="Instant (Motor)">Instant (Motor - Khusus Makanan/Barang Cepat)</option>
+                        <option value="Same Day (Mobil/Kurir)">Same Day (Reguler - Paket Sedang)</option>
+                        <option value="Cargo (Kargo Besar)">Cargo (Pengiriman Kargo > 10 Kg)</option>
+                    </select>
+                </div>
+
+                <button class="action-btn" onclick="calculateDelivery()">Hitung Rute & Estimasi Biaya</button>
+            </div>
+
+            <!-- Kolom Kanan: Hasil Kalkulasi & Waktu Tempuh -->
+            <div class="card">
+                <div class="card-title">
+                    <span>📊 Hasil Analisis Rute & Sistem</span>
+                </div>
+
+                <div class="output-box" id="resultDisplay">
+                    <strong>[Siap Menghitung]:</strong> Silakan isi titik penjemputan, alamat tujuan, dan pilih jenis layanan di sebelah kiri, lalu klik tombol "Hitung Rute & Estimasi Biaya" untuk melihat hasil simulasinya.
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Baris Kedua: Daftar Layanan & Tarif Umum -->
+        <div class="grid-layout" style="grid-template-columns: 1fr;">
+            <div class="card">
+                <div class="card-title">
+                    <span>💰 Referensi Tarif Layanan Kurir Harian</span>
+                </div>
+
+                <div class="price-list">
+                    <div class="price-item">
+                        <span class="price-service">Motor Instant (0 - 5 km pertama)</span>
+                        <span class="price-cost">Rp 12.000 - Rp 18.000</span>
+                    </div>
+                    <div class="price-item">
+                        <span class="price-service">Reguler / Same Day (Antar Kota/Kecamatan)</span>
+                        <span class="price-cost">Rp 20.000 - Rp 35.000</span>
+                    </div>
+                    <div class="price-item">
+                        <span class="price-service">Cargo Kendaraan Besar (> 10 kg)</span>
+                        <span class="price-cost">Rp 50.000+ (Dihitung per kg)</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        function calculateDelivery() {
+            const pickup = document.getElementById('pickupLoc').value;
+            const dropoff = document.getElementById('dropoffLoc').value.trim();
+            const service = document.getElementById('serviceType').value;
+            const display = document.getElementById('resultDisplay');
+
+            if(!dropoff) {
+                alert('Mohon isi alamat tujuan pengiriman terlebih dahulu!');
+                return;
+            }
+
+            // Simulasi hasil perhitungan acak yang masuk akal
+            let randomKm = (Math.random() * 8 + 2).toFixed(1);
+            let randomMinutes = Math.round(randomKm * 3.5);
+            let basePrice = service.includes('Instant') ? 15000 : (service.includes('Same') ? 25000 : 60000);
+            let finalPrice = basePrice + Math.round(randomKm * 2000);
+
+            display.innerHTML = `<strong>Status: Rute Berhasil Dihitung!</strong><br>` +
+                                `- Titik Asal: ${pickup}<br>` +
+                                `- Alamat Tujuan: ${dropoff}<br>` +
+                                `- Layanan Dipilih: ${service}<br>` +
+                                `- Estimasi Jarak: <strong>${randomKm} Kilometer</strong><br>` +
+                                `- Perkiraan Waktu Tiba: <strong>~${randomMinutes} Menit</strong><br>` +
+                                `- Total Estimasi Ongkir: <strong style="color: var(--accent-orange);">Rp ${finalPrice.toLocaleString('id-ID')}</strong>`;
+        }
+    </script>
+</body>
+</html>
